@@ -29,7 +29,7 @@ function SignIn() {
 
     return (
         <div className='sign-in'>
-        <h3>Test</h3>
+        <h1 className="gitTest">Test</h1>
         <h2 className='title'>I already have an account</h2>
         <span>Sign in with your email and password</span>
 
