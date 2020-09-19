@@ -49,8 +49,10 @@ function SignIn() {
             label='Password'
             required
         />
-        <CustomButton type="Submit">Sign In</CustomButton>
-        <CustomButton onClick={signInWithGoogle}>Sign In with Google</CustomButton>
+        <div className='button'>
+            <CustomButton type="Submit">Sign In</CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>Sign In with Google</CustomButton>
+        </div>
         </form>
     </div>
     )
