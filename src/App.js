@@ -10,10 +10,9 @@ import fire from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
-  const [user,setUser] = useState(null);
+  const [user,setUser] = useState('');
 
   //Auth User Effect Hook to store credentials
-
   const authListener = () => {
     fire.auth().onAuthStateChanged( async userAuth => {
       if(userAuth){
@@ -22,15 +21,14 @@ function App() {
         userRef.onSnapshot( snapShot => {
           setUser({
             id: snapShot.id,
-            ...snapShot.data()
-          
+            ...snapShot.data()     
           });
+
         });
       }
     });
   };
 
-  console.log(user);
 
   useEffect(() => {
     authListener();
