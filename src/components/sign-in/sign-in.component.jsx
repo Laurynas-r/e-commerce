@@ -4,28 +4,28 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 import { signInWithGoogle } from '../../firebase/firebase.utils';
+import fire from '../../firebase/firebase.utils';
 
 import './sign-in.styles.scss';
 
 function SignIn() {
-    const [state, setState] = useState(
-        {
-            email: '',
-            password: ''
-        }
-    );
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
-        setState({ email: '', password: ''});
-    }
+        try {
+            await fire.auth().signInWithEmailAndPassword(email, password);
 
-    const handleChange = event => {
-        const { value, name } = event.target;
-        setState({ [name]: value });
-      };
+            setEmail('')
+            setPassword('')
+            console.log("You have been signed in  ");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className='sign-in'>
@@ -36,16 +36,16 @@ function SignIn() {
         <FormInput
             name='email'
             type='email'
-            handleChange={handleChange}
-            value={state.email}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             label='Email'
             required
         />
         <FormInput
             name='password'
             type='password'
-            value={state.password}
-            handleChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             label='Password'
             required
         />

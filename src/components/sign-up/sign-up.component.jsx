@@ -64,7 +64,7 @@ function SignUp() {
                     <FormInput
                     type='password'
                     name='password'
-                    label='P assword'
+                    label='Password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
