@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
-
+import { Switch, Route, Redirect } from 'react-router-dom';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component';
@@ -12,8 +11,9 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
 
 function App(props) {
-  console.log(props);
   //Auth User Effect Hook to store credentials
+
+  
   const authListener = () => {
     const { setCurrentUser } = props;
     fire.auth().onAuthStateChanged( async userAuth => {
@@ -30,7 +30,7 @@ function App(props) {
       setCurrentUser(userAuth);
     });
   };
-
+  
 
   useEffect(() => {
     authListener();
@@ -42,14 +42,28 @@ function App(props) {
       <Switch>
         <Route exact path='/' component={HomePage}></Route>
         <Route path='/shop' component={ShopPage}></Route>
-        <Route path='/signin' component={SignInSignUpPage}></Route>
+        <Route
+            exact
+            path='/signin'
+            render={() =>
+              props.user ? (
+                <Redirect to='/' />
+              ) : (
+                <SignInSignUpPage/>
+              )
+            }
+          />
       </Switch>    
     </div>
   );
 }
 
+const mapStateToProps = user => ({
+  user : user.user.user
+})
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps )(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
