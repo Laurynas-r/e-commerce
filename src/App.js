@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
@@ -8,24 +8,26 @@ import SignInSignUpPage from './pages/sign-in-sign-up/sign-in-sign-up.component'
 import Header from './components/header/header.component';
 import fire from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions'
 
-function App() {
-  const [user,setUser] = useState('');
-
+function App(props) {
+  console.log(props);
   //Auth User Effect Hook to store credentials
   const authListener = () => {
+    const { setCurrentUser } = props;
     fire.auth().onAuthStateChanged( async userAuth => {
       if(userAuth){
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot( snapShot => {
-          setUser({
+           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()     
           });
-
         });
       }
+      setCurrentUser(userAuth);
     });
   };
 
@@ -36,7 +38,7 @@ function App() {
 
   return (
     <div>
-      <Header user={user} />
+      <Header  />
       <Switch>
         <Route exact path='/' component={HomePage}></Route>
         <Route path='/shop' component={ShopPage}></Route>
@@ -46,4 +48,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps )(App);
