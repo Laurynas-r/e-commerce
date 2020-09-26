@@ -14,16 +14,16 @@ import { auth } from '../../firebase/firebase.utils';
         <div className='options'>
             <Link className='option' to="/shop">SHOP</Link>
             <Link className='option' to="/contact">CONTACT</Link>
-            <Link className='signin' to="/signin">
+            <div className='signin' to="/signin">
                 {
                     user ? (
-                    <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>)
+                    <Link className='option' onClick={() => auth.signOut()}>SIGN OUT</Link>)
                     : 
                     (
                     <Link className='option' to='/signin'>SIGN IN</Link>
                     )
                 }
-            </Link>
+            </div>
         </div>
      </div>
  )

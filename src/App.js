@@ -12,8 +12,6 @@ import { setCurrentUser } from './redux/user/user.actions'
 
 function App(props) {
   //Auth User Effect Hook to store credentials
-
-  
   const authListener = () => {
     const { setCurrentUser } = props;
     fire.auth().onAuthStateChanged( async userAuth => {
@@ -34,7 +32,8 @@ function App(props) {
 
   useEffect(() => {
     authListener();
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
