@@ -16,7 +16,6 @@ const config = {
   };
 
   //getting user infromation and storing it to database
-
   export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;
 
