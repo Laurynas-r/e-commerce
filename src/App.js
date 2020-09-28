@@ -9,6 +9,8 @@ import fire from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions'
+import { selectCurrentUser } from './redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
 
 function App(props) {
   //Auth User Effect Hook to store credentials
@@ -57,8 +59,8 @@ function App(props) {
   );
 }
 
-const mapStateToProps = user => ({
-  user : user.user.user
+const mapStateToProps = createStructuredSelector({
+  user : selectCurrentUser
 })
 
 const mapDispatchToProps = dispatch => ({
