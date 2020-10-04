@@ -6,7 +6,7 @@ const INITIAL_STATE =
         imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
         size: 'large',
         id: 1,
-        linkUrl: '/hats'
+        linkUrl: 'shop/hats'
       },
       {
         title: 'jackets',
