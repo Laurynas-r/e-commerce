@@ -6,7 +6,6 @@ import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { selectCartTotal  } from '../../redux/cart/cart.selectors';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import StrikeCheckoutButton from '../../components/stripe-button/stripe-button.component';
 
 import './checkout.styles.scss';
 import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';

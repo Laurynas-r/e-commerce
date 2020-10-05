@@ -9,32 +9,40 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-import './header.styles.scss';
+import { 
+    HeaderContainer,
+    LogoContainer,
+    OptionsContainer,
+    OptionLink,
+    OptionDiv 
+} from './header.styles';
 
 //import for signing out user .auth().signOut()
 import { auth } from '../../firebase/firebase.utils';
 
  const Header = ({user, hidden}) => (
-     <div className='header'>
-            <Link className='logo-container' to="/"><Logo className='logo' /></Link>
-        <div className='options'>
-            <Link className='option' to="/shop">SHOP</Link>
-            <Link className='option' to="/contact">CONTACT</Link>
+    <HeaderContainer>
+            <LogoContainer to="/">
+                <Logo className='logo' />
+            </LogoContainer>
+        <OptionsContainer>
+            <OptionLink to="/shop">SHOP</OptionLink>
+            <OptionLink to="/contact">CONTACT</OptionLink>
             <div className='signin' to="/signin">
                 {
                     user ? (
-                    <Link className='option' onClick={() => auth.signOut()}>SIGN OUT</Link>)
+                    <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>)
                     : 
                     (
-                    <Link className='option' to='/signin'>SIGN IN</Link>
+                    <OptionLink className='option' to='/signin'>SIGN IN</OptionLink>
                     )
                 }
                 
             </div>
             <CartIcon />
-        </div>
+        </OptionsContainer>
         {hidden ? null : <CartDropdown />}
-     </div>
+    </HeaderContainer>
  )
 
  //added createStructuredSelector to structurize multiple states
