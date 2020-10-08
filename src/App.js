@@ -11,9 +11,12 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import fire from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
 import { connect } from 'react-redux';
+
 import { setCurrentUser } from './redux/user/user.actions'
 import { selectCurrentUser } from './redux/user/user.selector';
+
 import { createStructuredSelector } from 'reselect';
+
 
 
 function App(props) {
@@ -21,7 +24,7 @@ function App(props) {
   const authListener = () => {
     const { setCurrentUser } = props;
     fire.auth().onAuthStateChanged( async userAuth => {
-      if(userAuth){
+      if(userAuth){ 
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot( snapShot => {
@@ -65,7 +68,7 @@ function App(props) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user : selectCurrentUser
+  user : selectCurrentUser,
 })
 
 const mapDispatchToProps = dispatch => ({
