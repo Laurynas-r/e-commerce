@@ -19,11 +19,12 @@ function ShopPage({ match, updateCollections }) {
   const collectionListener = () => {
     
     const collectionRef = firestore.collection('collections');
-    collectionRef.onSnapshot(async snapshot => {
-     const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      updateCollections(collectionsMap);
-      setLoading(false);
-    });
+
+    collectionRef.get().then((snapshot => {
+      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+       updateCollections(collectionsMap);
+       setLoading(false);
+     }));
   };
 
   useEffect(() => {
